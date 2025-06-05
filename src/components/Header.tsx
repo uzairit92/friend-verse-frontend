@@ -1,5 +1,5 @@
 
-import { Search, Home, Users, MessageCircle, Bell, Menu } from "lucide-react";
+import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ const Header = () => {
           </div>
 
           {/* Center Navigation - Hidden on mobile */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Home className="w-6 h-6 text-blue-600" />
             </Button>
@@ -40,6 +40,21 @@ const Header = () => {
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <MessageCircle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <Heart className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <Clock className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <Calendar className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <DollarSign className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <Plane className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
           </div>
 
@@ -81,7 +96,7 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t pt-4">
-            <div className="flex justify-around">
+            <div className="grid grid-cols-4 gap-2 mb-4">
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <Home className="w-6 h-6 text-blue-600" />
                 <span className="text-xs mt-1">Home</span>
@@ -93,6 +108,26 @@ const Header = () => {
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <MessageCircle className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Messages</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <Heart className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Zikar</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <Clock className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Namaz</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <Calendar className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Events</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <DollarSign className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Zakat</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <Plane className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Hajj/Umrah</span>
               </Button>
             </div>
             <div className="mt-4">

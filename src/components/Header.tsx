@@ -20,11 +20,11 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center space-x-4">
-            <div className="text-2xl font-bold text-blue-600">SocialBook</div>
+            <div className="text-2xl font-bold text-blue-600">Fitraah</div>
             <div className="hidden md:block relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input 
-                placeholder="Search SocialBook" 
+                placeholder="Search Fitraah" 
                 className="pl-10 w-64 bg-gray-100 border-none rounded-full"
               />
             </div>
@@ -99,7 +99,7 @@ const Header = () => {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input 
-                  placeholder="Search SocialBook" 
+                  placeholder="Search Fitraah" 
                   className="pl-10 w-full bg-gray-100 border-none rounded-full"
                 />
               </div>

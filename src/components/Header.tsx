@@ -1,5 +1,4 @@
-
-import { Search, Home, Users, MessageCircle, Bell, Menu, BookOpen, Clock, Calendar, DollarSign, Plane, Beads } from "lucide-react";
+import { Search, Home, Users, MessageCircle, Bell, Menu, BookOpen, Clock, Calendar, DollarSign, Plane, Circle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,7 +41,7 @@ const Header = () => {
               <MessageCircle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-              <Beads className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+              <Circle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Clock className="w-6 h-6 text-gray-600 hover:text-blue-600" />
@@ -110,7 +109,7 @@ const Header = () => {
                 <span className="text-xs mt-1">Messages</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                <Beads className="w-6 h-6 text-gray-600" />
+                <Circle className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Tasbeeh</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">

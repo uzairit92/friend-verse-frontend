@@ -45,8 +45,8 @@ const Header = () => {
               <MessageCircle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Link to="/marketplace">
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <ShoppingBag className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+              <Button variant="ghost" size="sm" className="p-3 hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-blue-200 transition-all duration-200">
+                <ShoppingBag className="w-6 h-6 text-blue-600 hover:text-blue-700" />
               </Button>
             </Link>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
@@ -120,9 +120,9 @@ const Header = () => {
                 <span className="text-xs mt-1">Messages</span>
               </Button>
               <Link to="/marketplace">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <ShoppingBag className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Marketplace</span>
+                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2 hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-blue-200">
+                  <ShoppingBag className="w-6 h-6 text-blue-600" />
+                  <span className="text-xs mt-1 text-blue-600 font-medium">Marketplace</span>
                 </Button>
               </Link>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">

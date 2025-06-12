@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import * as MenubarPrimitive from "@radix-ui/react-menubar"
 import { Check, ChevronRight, Circle } from "lucide-react"
@@ -213,7 +212,7 @@ const MenubarShortcut = ({
     />
   )
 }
-MenubarShortcut.displayName = "MenubarShortcut"
+MenubarShortcut.displayname = "MenubarShortcut"
 
 export {
   Menubar,

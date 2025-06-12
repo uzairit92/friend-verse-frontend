@@ -1,5 +1,5 @@
 
-import { Search, Home, Users, MessageCircle, Bell, Menu, BookOpen, Clock, Calendar, DollarSign, Plane, Circle, ShoppingBag } from "lucide-react";
+import { Search, Home, Users, MessageCircle, Bell, Menu, BookOpen, Clock, Calendar, DollarSign, Plane, Circle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +20,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-2xl font-bold text-blue-600">Fitraah</Link>
+            <div className="text-2xl font-bold text-blue-600">Fitraah</div>
             <div className="hidden md:block relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input 
@@ -33,22 +32,15 @@ const Header = () => {
 
           {/* Center Navigation - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <Home className="w-6 h-6 text-blue-600" />
-              </Button>
-            </Link>
+            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+              <Home className="w-6 h-6 text-blue-600" />
+            </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <BookOpen className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <MessageCircle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
-            <Link to="/marketplace">
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-blue-200 transition-all duration-200">
-                <ShoppingBag className="w-6 h-6 text-blue-600 hover:text-blue-700" />
-              </Button>
-            </Link>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Circle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
@@ -105,12 +97,10 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t pt-4">
             <div className="grid grid-cols-4 gap-2 mb-4">
-              <Link to="/">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Home className="w-6 h-6 text-blue-600" />
-                  <span className="text-xs mt-1">Home</span>
-                </Button>
-              </Link>
+              <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
+                <Home className="w-6 h-6 text-blue-600" />
+                <span className="text-xs mt-1">Home</span>
+              </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <BookOpen className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Education</span>
@@ -119,12 +109,6 @@ const Header = () => {
                 <MessageCircle className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Messages</span>
               </Button>
-              <Link to="/marketplace">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2 hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-blue-200">
-                  <ShoppingBag className="w-6 h-6 text-blue-600" />
-                  <span className="text-xs mt-1 text-blue-600 font-medium">Marketplace</span>
-                </Button>
-              </Link>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <Circle className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Tasbeeh</span>

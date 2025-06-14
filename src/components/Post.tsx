@@ -11,7 +11,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Post = ({ author, content, image, likes, comments, shares }) => {
+interface PostProps {
+  author: {
+    name: string;
+    avatar: string;
+    time: string;
+  };
+  content: string;
+  image?: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
+
+const Post = ({ author, content, image, likes, comments, shares }: PostProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
 

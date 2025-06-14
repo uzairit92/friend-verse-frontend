@@ -1,5 +1,5 @@
 
-import { Search, Home, Users, MessageCircle, Bell, Menu, BookOpen, Clock, Calendar, DollarSign, Plane, Circle } from "lucide-react";
+import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,13 +36,13 @@ const Header = () => {
               <Home className="w-6 h-6 text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-              <BookOpen className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+              <Users className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <MessageCircle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-              <Circle className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+              <Heart className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Clock className="w-6 h-6 text-gray-600 hover:text-blue-600" />
@@ -102,20 +102,20 @@ const Header = () => {
                 <span className="text-xs mt-1">Home</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                <BookOpen className="w-6 h-6 text-gray-600" />
-                <span className="text-xs mt-1">Education</span>
+                <Users className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Friends</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <MessageCircle className="w-6 h-6 text-gray-600" />
                 <span className="text-xs mt-1">Messages</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                <Circle className="w-6 h-6 text-gray-600" />
-                <span className="text-xs mt-1">Tasbeeh</span>
+                <Heart className="w-6 h-6 text-gray-600" />
+                <span className="text-xs mt-1">Zikar</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <Clock className="w-6 h-6 text-gray-600" />
-                <span className="text-xs mt-1">Prayers</span>
+                <span className="text-xs mt-1">Namaz</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
                 <Calendar className="w-6 h-6 text-gray-600" />

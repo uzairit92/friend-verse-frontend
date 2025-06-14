@@ -64,6 +64,21 @@ const Header = () => {
                 <span className="hidden lg:inline font-semibold text-green-700">Marketplace</span>
               </a>
             </Button>
+            {/* Games Section Nav */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-3 hover:bg-gray-100 rounded-lg"
+              asChild
+            >
+              <a href="/games" className="flex items-center gap-2">
+                {/* use gamepad from lucide-react */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M6 20v-2M18 20v-2M2 14v-3.2a2 2 0 011.21-1.81A9.96 9.96 0 0112 6a9.96 9.96 0 018.79 2.99A2 2 0 0122 10.8V14a4 4 0 01-4 4H6a4 4 0 01-4-4ZM8.5 16v-1M15.5 16v-1M9 10h.01M15 10h.01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="hidden lg:inline font-semibold text-pink-600">Games</span>
+              </a>
+            </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Users className="w-6 h-6 text-gray-600 hover:text-blue-600" />
             </Button>

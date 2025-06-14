@@ -1,7 +1,7 @@
 
-import React from "react";
-import { gamepad } from "lucide-react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import SalahTimeMatching from "../games/SalahTimeMatching"; // new game component
 
 const games = [
   {
@@ -43,15 +43,15 @@ const games = [
 ];
 
 const GamesLanding = () => {
+  const [showSalahGame, setShowSalahGame] = useState(false);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-pink-50 px-0 pb-12">
       {/* Hero */}
       <div className="py-8 px-4 flex flex-col items-center justify-center text-center">
         <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-200 to-blue-300 flex items-center justify-center shadow-lg mb-3 animate-bounce">
-          {/* Use gamepad (lucide-react) as SVG */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M6 20v-2M18 20v-2M2 14v-3.2a2 2 0 011.21-1.81A9.96 9.96 0 0112 6a9.96 9.96 0 018.79 2.99A2 2 0 0122 10.8V14a4 4 0 01-4 4H6a4 4 0 01-4-4ZM8.5 16v-1M15.5 16v-1M9 10h.01M15 10h.01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          {/* Cute kids game controller SVG or emoji */}
+          <span className="text-4xl">🎮</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold font-[Comic Sans MS,cursive,sans-serif] text-pink-700 mb-2">Welcome to the Kids Zone!</h1>
         <div className="text-lg md:text-xl font-semibold text-blue-700 mb-3">Games & Animation</div>
@@ -64,17 +64,41 @@ const GamesLanding = () => {
             <div className="text-4xl md:text-5xl mb-2 p-2">{game.icon}</div>
             <div className="font-bold text-lg text-pink-600 mb-1">{game.title}</div>
             <div className="text-gray-700 text-sm mb-4 text-center">{game.desc}</div>
-            <Button 
-              variant="secondary" 
-              className="w-full max-w-[180px] text-lg bg-pink-200 text-pink-800 font-bold rounded-full py-2 active:scale-95"
-              disabled // Game not yet implemented
-            >
-              Coming Soon!
-            </Button>
+            {game.key === "salah" ? (
+              <Button 
+                variant="secondary"
+                className="w-full max-w-[180px] text-lg bg-pink-200 text-pink-800 font-bold rounded-full py-2 active:scale-95"
+                onClick={() => setShowSalahGame(true)}
+              >
+                Play Now!
+              </Button>
+            ) : (
+              <Button 
+                variant="secondary" 
+                className="w-full max-w-[180px] text-lg bg-pink-200 text-pink-800 font-bold rounded-full py-2 active:scale-95"
+                disabled
+              >
+                Coming Soon!
+              </Button>
+            )}
           </div>
         ))}
       </div>
-      {/* Optional: add navigation for "Watch Cartoons", "Learn Arabic", etc. in the future */}
+      {/* Salah Game Modal */}
+      {showSalahGame && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center" onClick={() => setShowSalahGame(false)}>
+          <div className="bg-white rounded-xl p-3 md:p-6 shadow-2xl min-w-[90vw] max-w-lg mx-auto relative" onClick={e => e.stopPropagation()}>
+            <button
+              className="absolute right-2 top-2 text-xl text-gray-400 hover:text-pink-500 font-bold rounded-full"
+              onClick={() => setShowSalahGame(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <SalahTimeMatching />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

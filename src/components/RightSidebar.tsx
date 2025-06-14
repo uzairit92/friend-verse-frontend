@@ -1,8 +1,8 @@
-
 import { MoreHorizontal, Clock, BookOpen, Heart, Calendar, Users, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import TasbihCard from "./TasbihCard";
 
 const RightSidebar = () => {
   const prayerTimes = [
@@ -27,7 +27,7 @@ const RightSidebar = () => {
 
   return (
     <div className="p-4 space-y-4">
-      {/* Prayer Times */}
+      {/* PRAYER TIMES */}
       <Card className="shadow-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ const RightSidebar = () => {
         </CardContent>
       </Card>
 
-      {/* Daily Quran & Dhikr */}
+      {/* DAILY QURAN & DHIKR */}
       <Card className="shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
@@ -96,7 +96,10 @@ const RightSidebar = () => {
         </CardContent>
       </Card>
 
-      {/* Islamic Events Countdown */}
+      {/* TASBIH COUNTER */}
+      <TasbihCard />
+
+      {/* ISLAMIC EVENTS COUNTDOWN */}
       <Card className="shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
@@ -120,7 +123,7 @@ const RightSidebar = () => {
         </CardContent>
       </Card>
 
-      {/* Nearby Mosques */}
+      {/* NEARBY MOSQUES */}
       <Card className="shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">

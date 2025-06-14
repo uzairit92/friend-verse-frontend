@@ -1,9 +1,10 @@
-
 import React, { useState } from "react";
 import { CategoryMenu } from "../components/marketplace/CategoryMenu";
 import { MarketplaceNavbar } from "../components/marketplace/MarketplaceNavbar";
 import { DateLocationFilter } from "../components/marketplace/DateLocationFilter";
 import { ProductList } from "../components/marketplace/ProductList";
+import { MarketplaceSidebar } from "../components/marketplace/MarketplaceSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const MOCK_LISTINGS = [
   {
@@ -50,33 +51,62 @@ export default function Marketplace() {
       (!searchValue || item.title.toLowerCase().includes(searchValue.toLowerCase()))
   );
 
+  const handleCreateListing = () => alert("Listing form coming soon!");
+  const handleChangeLocation = () => alert("Location picker coming soon!");
+
   return (
-    <div className="bg-gray-50 min-h-screen pb-8">
-      <div className="max-w-6xl mx-auto px-2 sm:px-4 pt-8">
-        <MarketplaceNavbar
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          onSearch={() => {/* Implemented as filter on enter */}}
-          onSell={() => alert("Listing form coming soon!")}
-        />
-        <div className="flex flex-wrap gap-2 mb-6 items-center">
-          <CategoryMenu onSelectCategory={cat => setCategory(cat)} />
-          <span className="text-xs font-medium text-blue-700 opacity-60">
-            {category ? `Category: ${category}` : ""}
-          </span>
-        </div>
-        <DateLocationFilter
-          dateLabel={dateLabel}
-          onDateFilter={() => alert("Date filter coming soon!")}
-          locationLabel={locationLabel}
-          onLocationFilter={() => alert("Location filter coming soon!")}
-        />
-        <ProductList
-          items={filtered}
-          hasMore={false} // Only 3 items for now, no load more
-          onLoadMore={() => {}}
-        />
+    <SidebarProvider>
+      {/* The sidebar trigger for mobile */}
+      <div className="md:hidden border-b py-2 px-2 flex items-center gap-2">
+        <SidebarTrigger className="shrink-0" />
+        <span className="font-semibold text-lg tracking-tight">Marketplace</span>
       </div>
-    </div>
+      <div className="flex w-full min-h-screen bg-gray-50">
+        {/* Sidebar */}
+        <div className="hidden md:flex">
+          <MarketplaceSidebar
+            onSearch={() => {}} // Filtering is already live on input
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            locationLabel={locationLabel}
+            onChangeLocation={handleChangeLocation}
+            onCreateListing={handleCreateListing}
+          />
+        </div>
+        {/* Main Content */}
+        <main className="flex-1 px-2 sm:px-4 pt-8 pb-8">
+          {/* ... reuse actual Marketplace layout: navbar, categories, filter, productlist ... */}
+          {/* You can optionally remove duplicate UI elements present in the sidebar */}
+          <div className="max-w-5xl mx-auto">
+            <div className="hidden md:block h-6" />
+            {/* Remove MarketplaceNavbar and CategoryMenu if desired since now in sidebar */}
+            {/* Date/location filter and product list remain visible */}
+            <div className="mb-6">
+              {/* Date/location filter stuck at top for simplicity */}
+              <div className="flex flex-wrap gap-2 items-center">
+                {/* Optionally render remaining filter controls here */}
+                {/* Or move their controls into the sidebar for a single vertical stack */}
+              </div>
+              {/* Date & location filter remains as-is for now */}
+              <DateLocationFilter
+                dateLabel={dateLabel}
+                onDateFilter={() => alert("Date filter coming soon!")}
+                locationLabel={locationLabel}
+                onLocationFilter={() => alert("Location filter coming soon!")}
+              />
+            </div>
+            <div>
+              <h2 className="font-semibold text-xl mb-4">Listings</h2>
+              {/* ProductList is filtered by searchValue + category as before */}
+              <ProductList
+                items={filtered}
+                hasMore={false}
+                onLoadMore={() => {}}
+              />
+            </div>
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }

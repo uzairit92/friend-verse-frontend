@@ -1,4 +1,3 @@
-
 import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -32,8 +31,38 @@ const Header = () => {
 
           {/* Center Navigation - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-3 hover:bg-gray-100 rounded-lg"
+            >
               <Home className="w-6 h-6 text-blue-600" />
+            </Button>
+            {/* Marketplace Nav */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-3 hover:bg-gray-100 rounded-lg"
+              asChild
+            >
+              <a href="/marketplace" className="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  {/* ShoppingBag icon from lucide-react */}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 2l1.5 2.5M17 2l-1.5 2.5M4 7h16l-1.5 14h-13L4 7zm5 5a3 3 0 006 0"
+                  />
+                </svg>
+                <span className="hidden lg:inline font-semibold text-green-700">Marketplace</span>
+              </a>
             </Button>
             <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
               <Users className="w-6 h-6 text-gray-600 hover:text-blue-600" />

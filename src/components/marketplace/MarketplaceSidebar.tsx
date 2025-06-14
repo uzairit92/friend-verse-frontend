@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarInput, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Search, Inbox, MapPin, ShoppingBag, Plus, Category, ShoppingCart, Tag, List, Users, LayoutGrid } from "lucide-react";
+import { Search, Inbox, MapPin, ShoppingBag, Plus, ShoppingCart, Tag, List, Users, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Hardcoded categories for demo, can be reused from CategoryMenu if needed.
@@ -59,7 +59,7 @@ export function MarketplaceSidebar({
               <MapPin className="w-4 h-4" />
               <span>{locationLabel}</span>
             </div>
-            <Button variant="ghost" size="xs" className="text-xs px-2" onClick={onChangeLocation}>Change</Button>
+            <Button variant="ghost" size="sm" className="text-xs px-2" onClick={onChangeLocation}>Change</Button>
           </div>
           <div>
             <Button
@@ -75,15 +75,15 @@ export function MarketplaceSidebar({
               <div className="bg-gray-50 px-3 py-2 rounded-xl shadow-inner">
                 <div className="mb-1 font-medium text-xs text-gray-600">Quick Links</div>
                 <div className="flex flex-wrap gap-1 mb-2">
-                  <Button variant="ghost" size="xs" className="gap-1"><MapPin className="w-4 h-4 text-blue-600" />Local Listings</Button>
-                  <Button variant="ghost" size="xs" className="gap-1"><Users className="w-4 h-4 text-pink-600" />Buy & Sell Groups</Button>
-                  <Button variant="ghost" size="xs" className="gap-1"><List className="w-4 h-4 text-green-600" />Sale Events</Button>
-                  <Button variant="ghost" size="xs" className="gap-1"><Tag className="w-4 h-4 text-yellow-600" />Saved Items</Button>
+                  <Button variant="ghost" size="sm" className="gap-1"><MapPin className="w-4 h-4 text-blue-600" />Local Listings</Button>
+                  <Button variant="ghost" size="sm" className="gap-1"><Users className="w-4 h-4 text-pink-600" />Buy & Sell Groups</Button>
+                  <Button variant="ghost" size="sm" className="gap-1"><List className="w-4 h-4 text-green-600" />Sale Events</Button>
+                  <Button variant="ghost" size="sm" className="gap-1"><Tag className="w-4 h-4 text-yellow-600" />Saved Items</Button>
                 </div>
                 <div className="mb-1 mt-2 font-semibold text-xs text-gray-600">Top Categories</div>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {topCategories.map(c => (
-                    <Button variant="secondary" size="xs" key={c} className="rounded-full mb-1">{c}</Button>
+                    <Button variant="secondary" size="sm" key={c} className="rounded-full mb-1">{c}</Button>
                   ))}
                 </div>
                 <div className="mb-1 mt-2 font-semibold text-xs text-gray-600">All Categories</div>
@@ -92,7 +92,7 @@ export function MarketplaceSidebar({
                     <li key={c}>
                       <Button
                         variant="ghost"
-                        size="xs"
+                        size="sm"
                         className="block w-full justify-start whitespace-nowrap"
                       >{c}</Button>
                     </li>

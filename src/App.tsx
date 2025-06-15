@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Marketplace from "./pages/Marketplace";
 import GamesLanding from "./pages/Games";
 import Videos from "./pages/Videos";
+import Quran from "./pages/Quran";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/quran" element={<Quran />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/games" element={<GamesLanding />} />
           <Route path="/videos" element={<Videos />} />

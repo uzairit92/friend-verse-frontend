@@ -27,6 +27,9 @@ const RightSidebar = () => {
 
   return (
     <div className="p-4 space-y-4">
+      {/* TASBIH COUNTER (moved to top) */}
+      <TasbihCard />
+
       {/* PRAYER TIMES */}
       <Card className="shadow-sm">
         <CardHeader className="pb-3">
@@ -95,9 +98,6 @@ const RightSidebar = () => {
           </Button>
         </CardContent>
       </Card>
-
-      {/* TASBIH COUNTER */}
-      <TasbihCard />
 
       {/* ISLAMIC EVENTS COUNTDOWN */}
       <Card className="shadow-sm">

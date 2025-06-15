@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MainLayout from "@/components/MainLayout";
 import { CategoryMenu } from "../components/marketplace/CategoryMenu";
 import { MarketplaceNavbar } from "../components/marketplace/MarketplaceNavbar";
 import { DateLocationFilter } from "../components/marketplace/DateLocationFilter";
@@ -55,54 +56,56 @@ export default function Marketplace() {
   const handleChangeLocation = () => alert("Location picker coming soon!");
 
   return (
-    <SidebarProvider>
-      {/* The sidebar trigger and Marketplace icon/name should show at top in mobile */}
-      <div className="md:hidden border-b py-2 px-2 flex items-center gap-2">
-        <SidebarTrigger className="shrink-0" />
-        {/* Marketplace icon and label, always visible at top on mobile */}
-        <span className="font-semibold text-lg tracking-tight flex items-center gap-2">
-          {/* Use only the icon available: ShoppingBag */}
-          <svg className="inline w-6 h-6 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span>Marketplace</span>
-        </span>
-      </div>
-      <div className="flex w-full min-h-screen bg-gray-50">
-        {/* Sidebar: only show on desktop */}
-        <div className="hidden md:flex">
-          <MarketplaceSidebar
-            onSearch={() => {}} // Filtering is already live on input
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            locationLabel={locationLabel}
-            onChangeLocation={handleChangeLocation}
-            onCreateListing={handleCreateListing}
-          />
+    <MainLayout>
+      <SidebarProvider>
+        {/* The sidebar trigger and Marketplace icon/name should show at top in mobile */}
+        <div className="md:hidden border-b py-2 px-2 flex items-center gap-2">
+          <SidebarTrigger className="shrink-0" />
+          {/* Marketplace icon and label, always visible at top on mobile */}
+          <span className="font-semibold text-lg tracking-tight flex items-center gap-2">
+            {/* Use only the icon available: ShoppingBag */}
+            <svg className="inline w-6 h-6 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span>Marketplace</span>
+          </span>
         </div>
-        {/* Main Content */}
-        <main className="flex-1 px-2 sm:px-4 pt-8 pb-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="hidden md:block h-6" />
-            {/* Date/location filter and product list remain visible */}
-            <div className="mb-6">
-              <div className="flex flex-wrap gap-2 items-center"></div>
-              <DateLocationFilter
-                dateLabel={dateLabel}
-                onDateFilter={() => alert("Date filter coming soon!")}
-                locationLabel={locationLabel}
-                onLocationFilter={() => alert("Location filter coming soon!")}
-              />
-            </div>
-            <div>
-              <h2 className="font-semibold text-xl mb-4">Listings</h2>
-              <ProductList
-                items={filtered}
-                hasMore={false}
-                onLoadMore={() => {}}
-              />
-            </div>
+        <div className="flex w-full min-h-screen bg-gray-50">
+          {/* Sidebar: only show on desktop */}
+          <div className="hidden md:flex">
+            <MarketplaceSidebar
+              onSearch={() => {}} // Filtering is already live on input
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              locationLabel={locationLabel}
+              onChangeLocation={handleChangeLocation}
+              onCreateListing={handleCreateListing}
+            />
           </div>
-        </main>
-      </div>
-    </SidebarProvider>
+          {/* Main Content */}
+          <main className="flex-1 px-2 sm:px-4 pt-8 pb-8">
+            <div className="max-w-5xl mx-auto">
+              <div className="hidden md:block h-6" />
+              {/* Date/location filter and product list remain visible */}
+              <div className="mb-6">
+                <div className="flex flex-wrap gap-2 items-center"></div>
+                <DateLocationFilter
+                  dateLabel={dateLabel}
+                  onDateFilter={() => alert("Date filter coming soon!")}
+                  locationLabel={locationLabel}
+                  onLocationFilter={() => alert("Location filter coming soon!")}
+                />
+              </div>
+              <div>
+                <h2 className="font-semibold text-xl mb-4">Listings</h2>
+                <ProductList
+                  items={filtered}
+                  hasMore={false}
+                  onLoadMore={() => {}}
+                />
+              </div>
+            </div>
+          </main>
+        </div>
+      </SidebarProvider>
+    </MainLayout>
   );
 }

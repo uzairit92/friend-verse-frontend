@@ -1,14 +1,15 @@
-
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import NewsFeed from "@/components/NewsFeed";
 import RightSidebar from "@/components/RightSidebar";
+import MainLayout from "@/components/MainLayout";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <div className="flex max-w-7xl mx-auto pt-16">
+    <MainLayout>
+      {/* Optionally hide header, sidebars on mobile — now layout handles nav */}
+      {/* <Header /> */}
+      <div className="flex max-w-7xl mx-auto pt-0"> {/* Remove top padding, handled by layout spacer */}
         {/* Left Sidebar - Hidden on mobile */}
         <div className="hidden lg:block w-64 fixed left-0 top-16 h-full overflow-y-auto">
           <Sidebar />
@@ -24,7 +25,7 @@ const Index = () => {
           <RightSidebar />
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 };
 

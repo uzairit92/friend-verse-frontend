@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TasbihCard from "./TasbihCard";
+import VideoGrid from "./videos/VideoGrid";
 
 const RightSidebar = () => {
   const prayerTimes = [
@@ -149,6 +150,11 @@ const RightSidebar = () => {
           </Button>
         </CardContent>
       </Card>
+
+      {/* ISLAMIC VIDEOS SECTION */}
+      <div>
+        <VideoGrid />
+      </div>
     </div>
   );
 };

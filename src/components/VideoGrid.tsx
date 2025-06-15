@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { VideoFilters, VIDEO_CATEGORIES } from "@/components/VideoFilters";
-import VideoGrid from "@/components/VideoGrid";
-import VideoPlayerModal from "@/components/VideoPlayerModal";
-import { VideoType } from "@/components/VideoCard";
 
-// Keep in sync with the demoVideos array in VideoGrid.tsx for modal
-const allVideos: VideoType[] = [
+import React from "react";
+import VideoCard, { VideoType } from "./VideoCard";
+import { VideoFilters, VIDEO_CATEGORIES } from "./VideoFilters";
+import { scholars, getScholar } from "./Scholars";
+
+const demoVideos: VideoType[] = [
   {
     id: "v1",
     title: "The Virtues of Salah",
@@ -78,51 +77,35 @@ const allVideos: VideoType[] = [
   }
 ];
 
-export default function Videos() {
-  const [category, setCategory] = useState("All");
-  const [selected, setSelected] = useState<VideoType | null>(null);
+type Props = {
+  activeCategory: string;
+  onVideoSelect: (video: VideoType) => void;
+};
 
-  // Always up to date grid
+const VideoGrid: React.FC<Props> = ({ activeCategory, onVideoSelect }) => {
   const filtered =
-    category === "All"
-      ? allVideos
-      : allVideos.filter((v) => v.category === category);
-
-  // Related: same category, but not the current video
-  const related = selected
-    ? allVideos.filter(
-        (v) => v.category === (selected?.category ?? "") && v.id !== selected.id
-      )
-    : [];
+    activeCategory === "All"
+      ? demoVideos
+      : demoVideos.filter((v) => v.category === activeCategory);
 
   return (
-    <div className="py-8 px-1 sm:px-4 max-w-7xl mx-auto min-h-screen flex flex-col">
-      {/* Fancy heading bar */}
-      <div className="mb-6 flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-7">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-emerald-900 bg-gradient-to-r from-amber-100 via-white to-emerald-100 px-4 py-2 rounded-lg shadow font-serif">
-          📽️ Explore Islamic Videos
-        </h1>
-        <div className="text-emerald-700 font-medium">
-          Watch, learn, and explore knowledge from verified scholars & educators.
-        </div>
-      </div>
-      {/* Filters */}
-      <VideoFilters active={category} onChange={setCategory} />
-      {/* Grid */}
-      <VideoGrid
-        activeCategory={category}
-        onVideoSelect={setSelected}
-      />
-      {/* Modal Player */}
-      {selected && (
-        <VideoPlayerModal
-          open={!!selected}
-          video={selected}
-          onClose={() => setSelected(null)}
-          related={related}
-          onSelect={setSelected}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in">
+      {filtered.map((video, i) => (
+        <VideoCard
+          key={video.id}
+          video={video}
+          scholar={getScholar(video.scholarId)!}
+          onClick={() => onVideoSelect(video)}
+          showBadge={i === 0}
         />
+      ))}
+      {filtered.length === 0 && (
+        <div className="col-span-full text-center text-emerald-700 p-8">
+          No videos yet in this category.
+        </div>
       )}
     </div>
   );
-}
+};
+
+export default VideoGrid;

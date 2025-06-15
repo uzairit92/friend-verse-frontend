@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Book, GraduationCap, ShoppingBag, Settings, Gamepad, Menu } from "lucide-react";
+import { Home, Book, ShoppingBag, Settings, Gamepad, Menu } from "lucide-react";
 import clsx from "clsx";
 
 // Navigation links for both navbar and sidebar
@@ -15,11 +14,6 @@ const navLinks = [
     to: "/quran",
     label: "Quran",
     icon: <Book className="w-5 h-5" />,
-  },
-  {
-    to: "/education",
-    label: "Education",
-    icon: <GraduationCap className="w-5 h-5" />,
   },
   {
     to: "/marketplace",

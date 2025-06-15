@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TasbihCard from "./TasbihCard";
+import QiblaFinderCard from "./QiblaFinderCard";
 
 const RightSidebar = () => {
   const prayerTimes = [
@@ -27,7 +28,10 @@ const RightSidebar = () => {
 
   return (
     <div className="p-4 space-y-4">
-      {/* TASBIH COUNTER (moved to top) */}
+      {/* QIBLA FINDER (collapsible card, traveler-friendly) */}
+      <QiblaFinderCard />
+
+      {/* TASBIH COUNTER (moved just below Qibla) */}
       <TasbihCard />
 
       {/* PRAYER TIMES */}

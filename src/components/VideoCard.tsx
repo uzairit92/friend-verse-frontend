@@ -92,7 +92,7 @@ const VideoCard: React.FC<Props> = ({
             {scholar.name}
           </span>
           {scholar.verified && (
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" title="Verified" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           )}
         </div>
         <h3 className="font-serif text-lg font-bold text-emerald-900 truncate">{video.title}</h3>
@@ -113,3 +113,4 @@ const VideoCard: React.FC<Props> = ({
 };
 
 export default VideoCard;
+

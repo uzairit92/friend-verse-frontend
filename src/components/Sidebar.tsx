@@ -1,20 +1,34 @@
 
-import { Home, Users, Bookmark, Calendar, Clock, ChevronDown, BookOpen, Video, ShoppingBag, Gamepad, Settings } from "lucide-react";
+import { Home, Users, Bookmark, Calendar, Clock, ChevronDown, BookOpen, Video, ShoppingBag, Gamepad, Settings, Save, Zap, Film, Megaphone, DollarSign, CreditCard, FileText, Globe } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useLanguage } from "@/hooks/useLanguage";
 import clsx from "clsx";
 
 const Sidebar = () => {
   const location = useLocation();
+  const { language, t, toggleLanguage } = useLanguage();
 
   const mainMenuItems = [
-    { icon: Home, label: "Feed", to: "/", active: location.pathname === "/" },
-    { icon: BookOpen, label: "Quran", to: "/quran", active: location.pathname === "/quran" },
-    { icon: Video, label: "Videos", to: "/videos", active: location.pathname === "/videos" },
-    { icon: ShoppingBag, label: "Marketplace", to: "/marketplace", active: location.pathname === "/marketplace" },
-    { icon: Gamepad, label: "Games", to: "/games", active: location.pathname === "/games" },
-    { icon: Settings, label: "Settings", to: "/settings", active: location.pathname === "/settings" },
+    { icon: Home, label: t('feed'), to: "/", active: location.pathname === "/" },
+    { icon: BookOpen, label: t('quran'), to: "/quran", active: location.pathname === "/quran" },
+    { icon: Video, label: t('videos'), to: "/videos", active: location.pathname === "/videos" },
+    { icon: ShoppingBag, label: t('marketplace'), to: "/marketplace", active: location.pathname === "/marketplace" },
+    { icon: Gamepad, label: t('games'), to: "/games", active: location.pathname === "/games" },
+    { icon: Settings, label: t('settings'), to: "/settings", active: location.pathname === "/settings" },
+  ];
+
+  const newSidebarItems = [
+    { icon: Save, label: t('save'), to: "/save" },
+    { icon: Users, label: t('groups'), to: "/groups" },
+    { icon: Zap, label: t('blink'), to: "/blink" },
+    { icon: Film, label: t('blinkEvents'), to: "/blink-events" },
+    { icon: Megaphone, label: t('adsManager'), to: "/ads-manager" },
+    { icon: DollarSign, label: t('fundraiser'), to: "/fundraiser" },
+    { icon: CreditCard, label: t('orders'), to: "/orders" },
+    { icon: FileText, label: t('pages'), to: "/pages" },
+    { icon: Clock, label: t('recent'), to: "/recent" },
   ];
 
   const shortcuts = [
@@ -24,7 +38,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="p-4 h-full">
+    <div className={`p-4 h-full ${language === 'ar' ? 'text-right' : 'text-left'}`}>
       <div className="space-y-2">
         <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
           <Avatar className="w-8 h-8">
@@ -34,15 +48,38 @@ const Sidebar = () => {
           <span className="font-medium">John Doe</span>
         </div>
 
+        {/* Main Navigation */}
         {mainMenuItems.map((item, index) => (
           <Button
             key={index}
             variant="ghost"
             className={clsx(
               "w-full justify-start space-x-3 h-10",
+              language === 'ar' && "flex-row-reverse space-x-reverse",
               item.active 
                 ? "bg-blue-50 text-blue-600 hover:bg-blue-100" 
                 : "hover:bg-gray-100"
+            )}
+            asChild
+          >
+            <Link to={item.to}>
+              <item.icon className="w-5 h-5" />
+              <span>{item.label}</span>
+            </Link>
+          </Button>
+        ))}
+
+        {/* Separator */}
+        <div className="border-t border-gray-200 my-4"></div>
+
+        {/* New Sidebar Items */}
+        {newSidebarItems.map((item, index) => (
+          <Button
+            key={index}
+            variant="ghost"
+            className={clsx(
+              "w-full justify-start space-x-3 h-10 hover:bg-gray-100",
+              language === 'ar' && "flex-row-reverse space-x-reverse"
             )}
             asChild
           >
@@ -56,13 +93,16 @@ const Sidebar = () => {
 
       <div className="mt-6">
         <div className="flex items-center justify-between px-2 py-2">
-          <h3 className="font-semibold text-gray-700">Your shortcuts</h3>
+          <h3 className="font-semibold text-gray-700">{t('shortcuts')}</h3>
           <ChevronDown className="w-4 h-4 text-gray-500" />
         </div>
         
         <div className="space-y-2">
           {shortcuts.map((shortcut, index) => (
-            <div key={index} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+            <div key={index} className={clsx(
+              "flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer",
+              language === 'ar' && "flex-row-reverse space-x-reverse"
+            )}>
               <Avatar className="w-8 h-8">
                 <AvatarImage src={shortcut.image} />
                 <AvatarFallback>{shortcut.name[0]}</AvatarFallback>
@@ -71,6 +111,21 @@ const Sidebar = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Language Toggle */}
+      <div className="mt-6 pt-4 border-t border-gray-200">
+        <Button
+          variant="ghost"
+          onClick={toggleLanguage}
+          className={clsx(
+            "w-full justify-start space-x-3 h-10 hover:bg-gray-100",
+            language === 'ar' && "flex-row-reverse space-x-reverse"
+          )}
+        >
+          <Globe className="w-5 h-5" />
+          <span>{t('language')}: {language === 'ar' ? 'العربية' : 'English'}</span>
+        </Button>
       </div>
     </div>
   );

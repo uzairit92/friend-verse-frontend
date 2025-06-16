@@ -1,15 +1,20 @@
 
-import { Home, Users, Bookmark, Calendar, Clock, ChevronDown } from "lucide-react";
+import { Home, Users, Bookmark, Calendar, Clock, ChevronDown, BookOpen, Video, ShoppingBag, Gamepad, Settings } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import clsx from "clsx";
 
 const Sidebar = () => {
-  const menuItems = [
-    { icon: Home, label: "Home", active: true },
-    { icon: Users, label: "Friends" },
-    { icon: Bookmark, label: "Saved" },
-    { icon: Calendar, label: "Events" },
-    { icon: Clock, label: "Memories" },
+  const location = useLocation();
+
+  const mainMenuItems = [
+    { icon: Home, label: "Feed", to: "/", active: location.pathname === "/" },
+    { icon: BookOpen, label: "Quran", to: "/quran", active: location.pathname === "/quran" },
+    { icon: Video, label: "Videos", to: "/videos", active: location.pathname === "/videos" },
+    { icon: ShoppingBag, label: "Marketplace", to: "/marketplace", active: location.pathname === "/marketplace" },
+    { icon: Gamepad, label: "Games", to: "/games", active: location.pathname === "/games" },
+    { icon: Settings, label: "Settings", to: "/settings", active: location.pathname === "/settings" },
   ];
 
   const shortcuts = [
@@ -29,16 +34,22 @@ const Sidebar = () => {
           <span className="font-medium">John Doe</span>
         </div>
 
-        {menuItems.map((item, index) => (
+        {mainMenuItems.map((item, index) => (
           <Button
             key={index}
             variant="ghost"
-            className={`w-full justify-start space-x-3 h-10 ${
-              item.active ? "bg-blue-50 text-blue-600 hover:bg-blue-100" : "hover:bg-gray-100"
-            }`}
+            className={clsx(
+              "w-full justify-start space-x-3 h-10",
+              item.active 
+                ? "bg-blue-50 text-blue-600 hover:bg-blue-100" 
+                : "hover:bg-gray-100"
+            )}
+            asChild
           >
-            <item.icon className="w-5 h-5" />
-            <span>{item.label}</span>
+            <Link to={item.to}>
+              <item.icon className="w-5 h-5" />
+              <span>{item.label}</span>
+            </Link>
           </Button>
         ))}
       </div>

@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import MainLayout from "@/components/MainLayout";
+import PageLayout from "@/components/PageLayout";
 import SalahTimeMatching from "../games/SalahTimeMatching";
 // New components
 import GamesTabs from "./GamesTabs";
@@ -87,7 +86,7 @@ const GamesLanding = () => {
   const [tab, setTab] = useState<"games" | "cartoons" | "arabic">("games");
 
   return (
-    <MainLayout>
+    <PageLayout>
       <div className="min-h-screen bg-gradient-to-b from-pink-50 via-yellow-50 to-blue-100 px-0 pb-14">
         {/* Hero Banner */}
         <div className="relative flex flex-col items-center py-7 px-2 mb-2">
@@ -226,7 +225,7 @@ const GamesLanding = () => {
           </div>
         )}
       </div>
-    </MainLayout>
+    </PageLayout>
   );
 };
 

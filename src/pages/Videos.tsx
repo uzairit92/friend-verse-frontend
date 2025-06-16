@@ -1,128 +1,22 @@
-import React, { useState } from "react";
-import { VideoFilters, VIDEO_CATEGORIES } from "@/components/VideoFilters";
+
+import PageLayout from "@/components/PageLayout";
+import VideoFilters from "@/components/VideoFilters";
 import VideoGrid from "@/components/VideoGrid";
-import VideoPlayerModal from "@/components/VideoPlayerModal";
-import { VideoType } from "@/components/VideoCard";
 
-// Keep in sync with the demoVideos array in VideoGrid.tsx for modal
-const allVideos: VideoType[] = [
-  {
-    id: "v1",
-    title: "The Virtues of Salah",
-    scholarId: "s1",
-    duration: "11:32",
-    description: "Discover the inner beauty and practical steps for perfecting your prayer.",
-    tags: ["Salah", "Spirituality"],
-    thumbnail: "/video-thumbs/salah.jpg",
-    category: "Fiqh / Islamic Rulings",
-    source: "youtube",
-    videoUrl: "https://www.youtube.com/embed/xp1JTmDZ73o",
-    references: ["Quran 2:43", "Hadith Sahih Bukhari"],
-    language: "English"
-  },
-  {
-    id: "v2",
-    title: "Quran Recitation: Surah Rahman",
-    scholarId: "s2",
-    duration: "5:29",
-    description: "Beautiful recitation with tajweed and meaning reflections.",
-    tags: ["Quran", "Recitation"],
-    thumbnail: "/video-thumbs/rahman.jpg",
-    category: "Quran Recitation",
-    source: "youtube",
-    videoUrl: "https://www.youtube.com/embed/q8n3h3oM0S8",
-    references: ["Quran 55"],
-    language: "Arabic"
-  },
-  {
-    id: "v3",
-    title: "Building Character: Akhlaq in Daily Life",
-    scholarId: "s4",
-    duration: "10:07",
-    description: "How to embody Islamic values in modern society.",
-    tags: ["Akhlaq", "Character"],
-    thumbnail: "/video-thumbs/akhlaq.jpg",
-    category: "Character & Akhlaq",
-    source: "youtube",
-    videoUrl: "https://www.youtube.com/embed/akH-KQ-HTGw",
-    references: ["Quran 33:21"],
-    language: "English"
-  },
-  {
-    id: "v4",
-    title: "Islam & Mental Health",
-    scholarId: "s3",
-    duration: "14:53",
-    description: "Practical mental wellness for Muslims. Guest Q&A at 8:00.",
-    tags: ["Mental Health", "Q&A"],
-    thumbnail: "/video-thumbs/mentalhealth.jpg",
-    category: "Mental Health & Islam",
-    source: "youtube",
-    videoUrl: "https://www.youtube.com/embed/j_PCW9MFALw",
-    references: ["Hadith Muslim 2564"],
-    language: "English"
-  },
-  {
-    id: "v5",
-    title: "Ask a Scholar: Youth Issues",
-    scholarId: "s2",
-    duration: "7:18",
-    description: "Live Q&A about youth, identity, and deen.",
-    tags: ["Youth", "Q&A"],
-    thumbnail: "/video-thumbs/youth.jpg",
-    category: "Ask a Scholar (Q&A)",
-    source: "youtube",
-    videoUrl: "https://www.youtube.com/embed/MXGAG56q-sw",
-    references: ["Quran 31:13-19"],
-    language: "English"
-  }
-];
-
-export default function Videos() {
-  const [category, setCategory] = useState("All");
-  const [selected, setSelected] = useState<VideoType | null>(null);
-
-  // Always up to date grid
-  const filtered =
-    category === "All"
-      ? allVideos
-      : allVideos.filter((v) => v.category === category);
-
-  // Related: same category, but not the current video
-  const related = selected
-    ? allVideos.filter(
-        (v) => v.category === (selected?.category ?? "") && v.id !== selected.id
-      )
-    : [];
-
+const Videos = () => {
   return (
-    <div className="py-8 px-1 sm:px-4 max-w-7xl mx-auto min-h-screen flex flex-col">
-      {/* Fancy heading bar */}
-      <div className="mb-6 flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-7">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-emerald-900 bg-gradient-to-r from-amber-100 via-white to-emerald-100 px-4 py-2 rounded-lg shadow font-serif">
-          📽️ Explore Islamic Videos
-        </h1>
-        <div className="text-emerald-700 font-medium">
-          Watch, learn, and explore knowledge from verified scholars & educators.
+    <PageLayout>
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Islamic Videos
+          </h1>
         </div>
+        <VideoFilters />
+        <VideoGrid />
       </div>
-      {/* Filters */}
-      <VideoFilters active={category} onChange={setCategory} />
-      {/* Grid */}
-      <VideoGrid
-        activeCategory={category}
-        onVideoSelect={setSelected}
-      />
-      {/* Modal Player */}
-      {selected && (
-        <VideoPlayerModal
-          open={!!selected}
-          video={selected}
-          onClose={() => setSelected(null)}
-          related={related}
-          onSelect={setSelected}
-        />
-      )}
-    </div>
+    </PageLayout>
   );
-}
+};
+
+export default Videos;

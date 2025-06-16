@@ -162,16 +162,17 @@ const QiblaFinderCard: React.FC = () => {
     // iOS 13+: Ask permission
     if (
       typeof window !== "undefined" &&
+      window &&
       "ondeviceorientationabsolute" in window
     ) {
       window.addEventListener("deviceorientationabsolute", handleOrientation);
       handler = handleOrientation;
-    } else if ("ondeviceorientation" in window) {
+    } else if (typeof window !== "undefined" && window && "ondeviceorientation" in window) {
       window.addEventListener("deviceorientation", handleOrientation);
       handler = handleOrientation;
     }
     return () => {
-      if (handler) {
+      if (handler && typeof window !== "undefined" && window) {
         window.removeEventListener("deviceorientation", handler);
       }
     };
@@ -365,4 +366,3 @@ const QiblaFinderCard: React.FC = () => {
 };
 
 export default QiblaFinderCard;
-

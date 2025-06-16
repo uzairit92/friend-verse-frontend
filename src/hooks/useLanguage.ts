@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { Language, translations } from '@/utils/translations';
 
 export const useLanguage = () => {
-  // Default to Arabic as requested
+  // Default to English as requested
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem('language');
-    return (saved as Language) || 'ar';
+    return (saved as Language) || 'en'; // Changed from 'ar' to 'en'
   });
 
   useEffect(() => {

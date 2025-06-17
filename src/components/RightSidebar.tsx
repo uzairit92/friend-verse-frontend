@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { MoreHorizontal, Clock, BookOpen, Heart, Calendar, Users, MapPin, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,12 +8,16 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import TasbihCard from "./TasbihCard";
 import QiblaFinderCard from "./QiblaFinderCard";
 import AdCard from "./AdCard";
+import CardModal from "./CardModal";
 
 const RightSidebar = () => {
   const [prayerTimesOpen, setPrayerTimesOpen] = useState(true);
   const [dailyReflectionOpen, setDailyReflectionOpen] = useState(true);
   const [eventsOpen, setEventsOpen] = useState(true);
   const [mosquesOpen, setMosquesOpen] = useState(true);
+  
+  // Modal states
+  const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const prayerTimes = [
     { name: "Fajr", time: "5:30 AM", passed: true },
@@ -35,13 +40,19 @@ const RightSidebar = () => {
   ];
 
   const handleDonateClick = () => {
-    // Navigate to donation page or external link
     console.log("Donate clicked");
   };
 
   const handleMarketplaceClick = () => {
-    // Navigate to marketplace
     console.log("Marketplace clicked");
+  };
+
+  const openModal = (modalType: string) => {
+    setActiveModal(modalType);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
   };
 
   return (
@@ -57,7 +68,10 @@ const RightSidebar = () => {
         <Card className="shadow-sm">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+              <CardTitle 
+                className="text-lg font-semibold text-gray-800 flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors"
+                onClick={() => openModal('prayer-times')}
+              >
                 <Clock className="w-5 h-5 text-blue-600" />
                 Prayer Times
               </CardTitle>
@@ -110,7 +124,10 @@ const RightSidebar = () => {
         <Card className="shadow-sm">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+              <CardTitle 
+                className="text-lg font-semibold text-gray-800 flex items-center gap-2 cursor-pointer hover:text-green-600 transition-colors"
+                onClick={() => openModal('daily-reflection')}
+              >
                 <BookOpen className="w-5 h-5 text-green-600" />
                 Daily Reflection
               </CardTitle>
@@ -148,7 +165,10 @@ const RightSidebar = () => {
         <Card className="shadow-sm">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+              <CardTitle 
+                className="text-lg font-semibold text-gray-800 flex items-center gap-2 cursor-pointer hover:text-orange-600 transition-colors"
+                onClick={() => openModal('events')}
+              >
                 <Calendar className="w-5 h-5 text-orange-600" />
                 Upcoming Events
               </CardTitle>
@@ -183,7 +203,10 @@ const RightSidebar = () => {
         <Card className="shadow-sm">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+              <CardTitle 
+                className="text-lg font-semibold text-gray-800 flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors"
+                onClick={() => openModal('mosques')}
+              >
                 <Users className="w-5 h-5 text-blue-600" />
                 Nearby Mosques
               </CardTitle>
@@ -236,6 +259,141 @@ const RightSidebar = () => {
           onCtaClick={handleMarketplaceClick}
         />
       </div>
+
+      {/* MODALS */}
+      <CardModal
+        isOpen={activeModal === 'prayer-times'}
+        onClose={closeModal}
+        title="Prayer Times Details"
+        icon={<Clock className="w-5 h-5 text-blue-600" />}
+      >
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            {prayerTimes.map((prayer, index) => (
+              <div key={index} className={`p-3 rounded-lg border ${
+                prayer.next ? 'bg-blue-50 border-blue-200' : 
+                prayer.passed ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-200'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-sm">{prayer.name}</span>
+                  <span className="text-sm font-mono">{prayer.time}</span>
+                </div>
+                {prayer.next && (
+                  <p className="text-xs text-blue-600 mt-1">Next prayer</p>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="p-3 bg-gray-50 rounded-lg">
+            <p className="text-sm font-medium mb-2">Location Settings</p>
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <MapPin className="w-4 h-4" />
+              <span>New York, NY</span>
+              <Button variant="outline" size="sm" className="ml-auto">Change</Button>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button className="flex-1">Set Reminder</Button>
+            <Button variant="outline" className="flex-1">View Calendar</Button>
+          </div>
+        </div>
+      </CardModal>
+
+      <CardModal
+        isOpen={activeModal === 'daily-reflection'}
+        onClose={closeModal}
+        title="Daily Reflection"
+        icon={<BookOpen className="w-5 h-5 text-green-600" />}
+      >
+        <div className="space-y-4">
+          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+            <h3 className="font-medium text-green-800 mb-2">Verse of the Day</h3>
+            <p className="text-sm text-green-700 leading-relaxed mb-3">
+              "And whoever relies upon Allah - then He is sufficient for him. Indeed, Allah will accomplish His purpose."
+            </p>
+            <p className="text-xs text-green-600">- Quran 65:3</p>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+            <h3 className="font-medium text-purple-800 mb-2">Morning Dhikr Progress</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">SubhanAllahi wa bihamdihi</span>
+                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">100/100 ✓</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Astaghfirullah</span>
+                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">65/100</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button className="flex-1">Continue Reading</Button>
+            <Button variant="outline" className="flex-1">Share Reflection</Button>
+          </div>
+        </div>
+      </CardModal>
+
+      <CardModal
+        isOpen={activeModal === 'events'}
+        onClose={closeModal}
+        title="Islamic Events Calendar"
+        icon={<Calendar className="w-5 h-5 text-orange-600" />}
+      >
+        <div className="space-y-4">
+          {islamicEvents.map((event, index) => (
+            <div key={index} className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-800">{event.event}</h3>
+                  <p className="text-sm text-gray-500 mt-1">{event.daysLeft} days remaining</p>
+                  <p className="text-xs text-gray-400 mt-1">Click to set reminder</p>
+                </div>
+                <div className={`text-right ${event.color}`}>
+                  <span className="text-2xl font-bold">{event.daysLeft}</span>
+                  <p className="text-xs">days</p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="flex gap-2">
+            <Button className="flex-1">Add to Calendar</Button>
+            <Button variant="outline" className="flex-1">View Full Calendar</Button>
+          </div>
+        </div>
+      </CardModal>
+
+      <CardModal
+        isOpen={activeModal === 'mosques'}
+        onClose={closeModal}
+        title="Nearby Mosques"
+        icon={<Users className="w-5 h-5 text-blue-600" />}
+      >
+        <div className="space-y-4">
+          {nearbyMosques.map((mosque, index) => (
+            <div key={index} className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-800">{mosque.name}</h3>
+                  <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                    <MapPin className="w-3 h-3" />
+                    <span>{mosque.distance}</span>
+                  </div>
+                  <p className="text-sm text-blue-600 mt-1">{mosque.congregation}</p>
+                </div>
+                <Button variant="outline" size="sm">Get Directions</Button>
+              </div>
+            </div>
+          ))}
+          <div className="p-3 bg-blue-50 rounded-lg">
+            <p className="text-sm font-medium text-blue-800 mb-1">Need to find more mosques?</p>
+            <p className="text-xs text-blue-700">Search by location or browse categories</p>
+          </div>
+          <div className="flex gap-2">
+            <Button className="flex-1">Search More</Button>
+            <Button variant="outline" className="flex-1">Filter Results</Button>
+          </div>
+        </div>
+      </CardModal>
     </div>
   );
 };

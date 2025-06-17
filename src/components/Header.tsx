@@ -1,3 +1,4 @@
+
 import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -17,9 +18,14 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 border-b">
       <div className="max-w-7xl mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
-          {/* Left Section */}
+          {/* Left Section - Logo, Title & Search */}
           <div className="flex items-center space-x-4">
-            <div className="text-2xl font-bold text-blue-600">Fitraah</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">F</span>
+              </div>
+              <div className="text-2xl font-bold text-blue-600">Fitraah</div>
+            </div>
             <div className="hidden md:block relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input 
@@ -54,7 +60,6 @@ const Header = () => {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
-                  {/* ShoppingBag icon from lucide-react */}
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -72,7 +77,6 @@ const Header = () => {
               asChild
             >
               <a href="/games" className="flex items-center gap-2">
-                {/* use gamepad from lucide-react */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M6 20v-2M18 20v-2M2 14v-3.2a2 2 0 011.21-1.81A9.96 9.96 0 0112 6a9.96 9.96 0 018.79 2.99A2 2 0 0122 10.8V14a4 4 0 01-4 4H6a4 4 0 01-4-4ZM8.5 16v-1M15.5 16v-1M9 10h.01M15 10h.01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -102,7 +106,7 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Right Section */}
+          {/* Right Section - Notifications and Profile Dropdown */}
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="sm" className="p-2 hover:bg-gray-100 rounded-full">
               <Bell className="w-5 h-5 text-gray-600" />
@@ -118,10 +122,9 @@ const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Your Profile</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Help</DropdownMenuItem>
-                <DropdownMenuItem>Sign out</DropdownMenuItem>
+                <DropdownMenuItem>Sign Out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 

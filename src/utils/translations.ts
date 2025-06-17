@@ -22,30 +22,6 @@ export const translations = {
     // Other
     shortcuts: "Your shortcuts",
     language: "Language"
-  },
-  ar: {
-    // Navigation
-    feed: "الخلاصة",
-    quran: "القرآن",
-    videos: "الفيديوهات", 
-    marketplace: "السوق",
-    games: "الألعاب",
-    settings: "الإعدادات",
-    
-    // New Sidebar Buttons
-    save: "حفظ",
-    groups: "مجموعات",
-    blink: "لمحة", 
-    blinkEvents: "فعاليات لمحة",
-    adsManager: "مدير الإعلانات",
-    fundraiser: "حملات التبرع",
-    orders: "الطلبات والمدفوعات",
-    pages: "الصفحات",
-    recent: "النشاطات الأخيرة",
-    
-    // Other
-    shortcuts: "اختصاراتك",
-    language: "اللغة"
   }
 };
 

@@ -3,25 +3,24 @@ import { useState, useEffect } from 'react';
 import { Language, translations } from '@/utils/translations';
 
 export const useLanguage = () => {
-  // Default to English as requested
-  const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved as Language) || 'en'; // Changed from 'ar' to 'en'
-  });
+  // Default to English only
+  const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
-    localStorage.setItem('language', language);
-    // Set document direction for RTL support
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language;
-  }, [language]);
+    // Always set to English and LTR
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = 'en';
+    // Clear any stored language preference to ensure English is used
+    localStorage.removeItem('language');
+  }, []);
 
   const t = (key: keyof typeof translations.en) => {
-    return translations[language][key] || translations.en[key];
+    return translations.en[key];
   };
 
+  // No toggle functionality since we only support English
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'ar' : 'en');
+    // No-op since we only support English
   };
 
   return { language, setLanguage, t, toggleLanguage };

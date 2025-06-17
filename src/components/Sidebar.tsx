@@ -38,7 +38,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className={`p-4 h-full ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+    <div className="p-4 h-full text-left">
       <div className="space-y-2">
         <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
           <Avatar className="w-8 h-8">
@@ -55,7 +55,6 @@ const Sidebar = () => {
             variant="ghost"
             className={clsx(
               "w-full justify-start space-x-3 h-10",
-              language === 'ar' && "flex-row-reverse space-x-reverse",
               item.active 
                 ? "bg-blue-50 text-blue-600 hover:bg-blue-100" 
                 : "hover:bg-gray-100"
@@ -77,10 +76,7 @@ const Sidebar = () => {
           <Button
             key={index}
             variant="ghost"
-            className={clsx(
-              "w-full justify-start space-x-3 h-10 hover:bg-gray-100",
-              language === 'ar' && "flex-row-reverse space-x-reverse"
-            )}
+            className="w-full justify-start space-x-3 h-10 hover:bg-gray-100"
             asChild
           >
             <Link to={item.to}>
@@ -99,10 +95,7 @@ const Sidebar = () => {
         
         <div className="space-y-2">
           {shortcuts.map((shortcut, index) => (
-            <div key={index} className={clsx(
-              "flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer",
-              language === 'ar' && "flex-row-reverse space-x-reverse"
-            )}>
+            <div key={index} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
               <Avatar className="w-8 h-8">
                 <AvatarImage src={shortcut.image} />
                 <AvatarFallback>{shortcut.name[0]}</AvatarFallback>
@@ -118,13 +111,10 @@ const Sidebar = () => {
         <Button
           variant="ghost"
           onClick={toggleLanguage}
-          className={clsx(
-            "w-full justify-start space-x-3 h-10 hover:bg-gray-100",
-            language === 'ar' && "flex-row-reverse space-x-reverse"
-          )}
+          className="w-full justify-start space-x-3 h-10 hover:bg-gray-100"
         >
           <Globe className="w-5 h-5" />
-          <span>{t('language')}: {language === 'ar' ? 'العربية' : 'English'}</span>
+          <span>{t('language')}: English</span>
         </Button>
       </div>
     </div>

@@ -1,9 +1,9 @@
-
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BookmarkPlus, BookOpen, GraduationCap, Layers, BadgeCheck, Calendar } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
+import NooraniQaida from "@/components/NooraniQaida";
 
 // Dummy display progress, saved state etc.
 const savedCourses = [
@@ -17,6 +17,12 @@ const progress = {
 
 export default function QuranSection() {
   const [activeTab, setActiveTab] = useState("quran");
+  const [showNooraniQaida, setShowNooraniQaida] = useState(false);
+
+  // If showing Noorani Qaida, render that component
+  if (showNooraniQaida) {
+    return <NooraniQaida onBack={() => setShowNooraniQaida(false)} />;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8">
@@ -53,8 +59,14 @@ export default function QuranSection() {
               <p><b className="text-xs bg-blue-100 rounded px-2 py-0.5">2–3 months</b></p>
               <ul>
                 <li>• Letter recognition, vowels, pronunciation</li>
+                <li>• 10 comprehensive lessons with visual aids</li>
               </ul>
-              <button className="mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700">Start Course</button>
+              <button 
+                onClick={() => setShowNooraniQaida(true)}
+                className="mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700"
+              >
+                Start Course
+              </button>
             </CardContent>
           </Card>
           {/* Tajweed Essentials */}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProfileSetupModalProps {
   open: boolean;
@@ -20,6 +22,7 @@ interface ProfileSetupModalProps {
 
 const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
   const [activeSection, setActiveSection] = useState(0);
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -31,46 +34,43 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
     madhhab: "",
     sect: "",
     ethnicBackground: "",
-    languages: [],
     country: "",
     city: "",
-    timezone: "",
     prayerMethod: "",
     asrMethod: "",
     adhanReminders: false,
     qiblaCompass: false,
     prayerFrequency: "",
     sunnahFasting: "",
-    tools: [],
-    favoriteVerse: "",
-    connectWith: [],
-    discussionTopics: [],
-    contentPreferences: [],
-    joinGroups: false,
     profileVisibility: "",
-    messagePermissions: "",
-    photoTagging: false,
-    childFilter: false,
     theme: "",
-    language: "",
+    childFilter: false,
     childAccount: false,
     ageGroup: ""
   });
 
+  // Load saved profile data when modal opens
+  useEffect(() => {
+    if (open) {
+      const savedProfile = localStorage.getItem('fitraahProfile');
+      if (savedProfile) {
+        setFormData(JSON.parse(savedProfile));
+      }
+    }
+  }, [open]);
+
   const sections = [
     { title: "Basic Information", id: "basic" },
-    { title: "Religious & Spiritual Identity", id: "religious" },
-    { title: "Location & Prayer Settings", id: "location" },
-    { title: "Religious Practice & Tools", id: "practice" },
-    { title: "Social & Community", id: "social" },
-    { title: "Privacy & Account Settings", id: "privacy" },
-    { title: "Family & Kids (Optional)", id: "family" }
+    { title: "Religious Identity", id: "religious" },
+    { title: "Location & Prayer", id: "location" },
+    { title: "Practice & Tools", id: "practice" },
+    { title: "Privacy Settings", id: "privacy" }
   ];
 
   const renderBasicInformation = () => (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="username">★ Username</Label>
+        <Label htmlFor="username">Username *</Label>
         <div className="relative">
           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">@</span>
           <Input 
@@ -84,7 +84,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
       
       <div>
-        <Label htmlFor="email">★ Email Address</Label>
+        <Label htmlFor="email">Email Address *</Label>
         <Input 
           id="email" 
           type="email" 
@@ -95,7 +95,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label htmlFor="phone">Phone Number (optional)</Label>
+        <Label htmlFor="phone">Phone Number</Label>
         <Input 
           id="phone" 
           placeholder="+1 234 567 8900"
@@ -105,7 +105,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label htmlFor="dob">★ Date of Birth</Label>
+        <Label htmlFor="dob">Date of Birth *</Label>
         <Input 
           id="dob" 
           type="date"
@@ -115,7 +115,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label>★ Gender</Label>
+        <Label>Gender *</Label>
         <RadioGroup 
           value={formData.gender} 
           onValueChange={(value) => setFormData({...formData, gender: value})}
@@ -171,7 +171,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label>Madhhab (School of Thought) [Optional]</Label>
+        <Label>Madhhab (School of Thought)</Label>
         <Select value={formData.madhhab} onValueChange={(value) => setFormData({...formData, madhhab: value})}>
           <SelectTrigger>
             <SelectValue placeholder="Select madhhab" />
@@ -189,7 +189,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label>Sect / Denomination [Optional]</Label>
+        <Label>Sect / Denomination</Label>
         <Select value={formData.sect} onValueChange={(value) => setFormData({...formData, sect: value})}>
           <SelectTrigger>
             <SelectValue placeholder="Select sect" />
@@ -206,7 +206,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label htmlFor="ethnic">Ethnic or Cultural Background [Optional]</Label>
+        <Label htmlFor="ethnic">Ethnic or Cultural Background</Label>
         <Input 
           id="ethnic" 
           placeholder="E.g., Arab, South Asian, West African"
@@ -220,7 +220,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
   const renderLocationSettings = () => (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="country">★ Country</Label>
+        <Label htmlFor="country">Country *</Label>
         <Input 
           id="country" 
           placeholder="United States"
@@ -230,7 +230,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       </div>
 
       <div>
-        <Label htmlFor="city">★ City</Label>
+        <Label htmlFor="city">City *</Label>
         <Input 
           id="city" 
           placeholder="New York"
@@ -339,67 +339,6 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
           </div>
         </RadioGroup>
       </div>
-
-      <div>
-        <Label>Islamic Tools (Select all that apply)</Label>
-        <div className="space-y-2 mt-2">
-          {[
-            "Quran memorization tracker",
-            "Daily Duas and Azkar", 
-            "Zakat calculator",
-            "Islamic calendar & event reminders",
-            "Ramadan tools",
-            "Spiritual goals"
-          ].map((tool) => (
-            <div key={tool} className="flex items-center space-x-2">
-              <Checkbox id={tool} />
-              <Label htmlFor={tool}>{tool}</Label>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderSocialPreferences = () => (
-    <div className="space-y-4">
-      <div>
-        <Label>Content preferences for your home feed</Label>
-        <div className="space-y-2 mt-2">
-          {[
-            "Islamic reminders",
-            "Motivational posts",
-            "Educational content",
-            "Social posts",
-            "News from the Muslim world",
-            "Nasheeds & quotes"
-          ].map((pref) => (
-            <div key={pref} className="flex items-center space-x-2">
-              <Checkbox id={pref} />
-              <Label htmlFor={pref}>{pref}</Label>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <Label>Topics you enjoy discussing</Label>
-        <div className="space-y-2 mt-2">
-          {[
-            "Quran & Tafsir",
-            "Islamic history", 
-            "Science & Islam",
-            "Parenting & family",
-            "Halal lifestyle & travel",
-            "Islamic finance"
-          ].map((topic) => (
-            <div key={topic} className="flex items-center space-x-2">
-              <Checkbox id={topic} />
-              <Label htmlFor={topic}>{topic}</Label>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 
@@ -449,11 +388,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
         />
         <Label htmlFor="child-filter">Enable child-friendly content filter</Label>
       </div>
-    </div>
-  );
 
-  const renderFamilySettings = () => (
-    <div className="space-y-4">
       <div className="flex items-center space-x-2">
         <Checkbox 
           id="child-account" 
@@ -487,15 +422,34 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
       case 1: return renderReligiousIdentity();
       case 2: return renderLocationSettings();
       case 3: return renderPracticeTools();
-      case 4: return renderSocialPreferences();
-      case 5: return renderPrivacySettings();
-      case 6: return renderFamilySettings();
+      case 4: return renderPrivacySettings();
       default: return renderBasicInformation();
     }
   };
 
+  const validateForm = () => {
+    const requiredFields = ['username', 'email', 'dateOfBirth', 'gender', 'country', 'city'];
+    const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
+    
+    if (missingFields.length > 0) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields marked with *",
+        variant: "destructive"
+      });
+      return false;
+    }
+    return true;
+  };
+
   const handleSave = () => {
+    if (!validateForm()) return;
+    
     localStorage.setItem('fitraahProfile', JSON.stringify(formData));
+    toast({
+      title: "Profile Saved",
+      description: "Your profile has been saved successfully!",
+    });
     onOpenChange(false);
   };
 
@@ -503,10 +457,9 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Help us personalize your experience</DialogTitle>
+          <DialogTitle>Setup Your Profile</DialogTitle>
           <p className="text-sm text-gray-600">
-            Your answers will help you connect with the right community, get accurate prayer times, 
-            and enjoy content that aligns with your values. (Fields marked with ★ are required)
+            Help us personalize your Fitraah experience. Fields marked with * are required.
           </p>
         </DialogHeader>
 

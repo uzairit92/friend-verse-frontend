@@ -1,5 +1,5 @@
 
-import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane, User } from "lucide-react";
+import { Search, Home, Users, MessageCircle, Heart } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileSetupModal from "@/components/ProfileSetupModal";
 
 const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   return (
@@ -29,7 +28,7 @@ const Header = () => {
                 </div>
                 <div className="text-2xl font-bold text-blue-600">Fitraah</div>
               </div>
-              <div className="hidden md:block relative">
+              <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input 
                   placeholder="Search Fitraah" 
@@ -38,8 +37,8 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Center Navigation - Hidden on mobile */}
-            <div className="hidden md:flex items-center space-x-4">
+            {/* Center Navigation */}
+            <div className="flex items-center space-x-4">
               <Button
                 variant="ghost"
                 size="sm"
@@ -86,15 +85,14 @@ const Header = () => {
                   <span className="hidden lg:inline font-semibold text-pink-600">Games</span>
                 </a>
               </Button>
-              {/* Profile Nav */}
+              {/* Profile Text Nav */}
               <Button
                 variant="ghost"
                 size="sm"
                 className="p-3 hover:bg-gray-100 rounded-lg"
                 onClick={() => setIsProfileModalOpen(true)}
               >
-                <User className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-                <span className="hidden lg:inline font-semibold text-gray-700 ml-2">Profile</span>
+                <span className="font-semibold text-gray-700">Profile</span>
               </Button>
               <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
                 <Users className="w-6 h-6 text-gray-600 hover:text-blue-600" />
@@ -105,26 +103,10 @@ const Header = () => {
               <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
                 <Heart className="w-6 h-6 text-gray-600 hover:text-blue-600" />
               </Button>
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <Clock className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-              </Button>
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <Calendar className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-              </Button>
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <DollarSign className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-              </Button>
-              <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
-                <Plane className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-              </Button>
             </div>
 
-            {/* Right Section - Notifications and Profile Dropdown */}
+            {/* Right Section - Profile Dropdown */}
             <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" className="p-2 hover:bg-gray-100 rounded-full">
-                <Bell className="w-5 h-5 text-gray-600" />
-              </Button>
-              
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="p-1 rounded-full">
@@ -143,76 +125,8 @@ const Header = () => {
                   <DropdownMenuItem>Sign Out</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-
-              {/* Mobile Menu Button */}
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="md:hidden p-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <Menu className="w-5 h-5" />
-              </Button>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t pt-4">
-              <div className="grid grid-cols-4 gap-2 mb-4">
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Home className="w-6 h-6 text-blue-600" />
-                  <span className="text-xs mt-1">Home</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Users className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Friends</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <MessageCircle className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Messages</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Heart className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Zikar</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Clock className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Namaz</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Calendar className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Events</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <DollarSign className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Zakat</span>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex flex-col items-center p-2">
-                  <Plane className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Hajj/Umrah</span>
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="flex flex-col items-center p-2"
-                  onClick={() => setIsProfileModalOpen(true)}
-                >
-                  <User className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs mt-1">Profile</span>
-                </Button>
-              </div>
-              <div className="mt-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input 
-                    placeholder="Search Fitraah" 
-                    className="pl-10 w-full bg-gray-100 border-none rounded-full"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </header>
 

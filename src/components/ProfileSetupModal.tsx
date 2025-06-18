@@ -12,15 +12,6 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { 
-  Globe, 
-  Star, 
-  MapPin, 
-  BookOpen, 
-  MessageCircle, 
-  Shield,
-  Baby
-} from "lucide-react";
 
 interface ProfileSetupModalProps {
   open: boolean;
@@ -67,13 +58,13 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
   });
 
   const sections = [
-    { icon: Globe, title: "Basic Information", id: "basic" },
-    { icon: Star, title: "Religious & Spiritual Identity", id: "religious" },
-    { icon: MapPin, title: "Location & Prayer Settings", id: "location" },
-    { icon: BookOpen, title: "Religious Practice & Tools", id: "practice" },
-    { icon: MessageCircle, title: "Social & Community", id: "social" },
-    { icon: Shield, title: "Privacy & Account Settings", id: "privacy" },
-    { icon: Baby, title: "Family & Kids (Optional)", id: "family" }
+    { title: "Basic Information", id: "basic" },
+    { title: "Religious & Spiritual Identity", id: "religious" },
+    { title: "Location & Prayer Settings", id: "location" },
+    { title: "Religious Practice & Tools", id: "practice" },
+    { title: "Social & Community", id: "social" },
+    { title: "Privacy & Account Settings", id: "privacy" },
+    { title: "Family & Kids (Optional)", id: "family" }
   ];
 
   const renderBasicInformation = () => (
@@ -522,30 +513,25 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
         <div className="flex gap-6">
           {/* Section Navigation */}
           <div className="w-64 space-y-2">
-            {sections.map((section, index) => {
-              const IconComponent = section.icon;
-              return (
-                <button
-                  key={section.id}
-                  onClick={() => setActiveSection(index)}
-                  className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors ${
-                    activeSection === index 
-                      ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-                      : 'hover:bg-gray-50'
-                  }`}
-                >
-                  <IconComponent className="w-5 h-5" />
-                  <span className="text-sm font-medium">{section.title}</span>
-                </button>
-              );
-            })}
+            {sections.map((section, index) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(index)}
+                className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors ${
+                  activeSection === index 
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                    : 'hover:bg-gray-50'
+                }`}
+              >
+                <span className="text-sm font-medium">{section.title}</span>
+              </button>
+            ))}
           </div>
 
           {/* Form Content */}
           <div className="flex-1">
             <div className="mb-6">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                {React.createElement(sections[activeSection].icon, { className: "w-5 h-5" })}
+              <h3 className="text-lg font-semibold">
                 {sections[activeSection].title}
               </h3>
             </div>

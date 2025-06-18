@@ -1,3 +1,4 @@
+
 import { Search, Home, Users, MessageCircle, Bell, Menu, Heart, Clock, Calendar, DollarSign, Plane, User } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -84,6 +85,16 @@ const Header = () => {
                   </svg>
                   <span className="hidden lg:inline font-semibold text-pink-600">Games</span>
                 </a>
+              </Button>
+              {/* Profile Nav */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-3 hover:bg-gray-100 rounded-lg"
+                onClick={() => setIsProfileModalOpen(true)}
+              >
+                <User className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+                <span className="hidden lg:inline font-semibold text-gray-700 ml-2">Profile</span>
               </Button>
               <Button variant="ghost" size="sm" className="p-3 hover:bg-gray-100 rounded-lg">
                 <Users className="w-6 h-6 text-gray-600 hover:text-blue-600" />

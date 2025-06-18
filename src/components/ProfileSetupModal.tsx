@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { 
   Globe, 
-  Mosque, 
+  Star, 
   MapPin, 
   BookOpen, 
   MessageCircle, 
@@ -69,7 +68,7 @@ const ProfileSetupModal = ({ open, onOpenChange }: ProfileSetupModalProps) => {
 
   const sections = [
     { icon: Globe, title: "Basic Information", id: "basic" },
-    { icon: Mosque, title: "Religious & Spiritual Identity", id: "religious" },
+    { icon: Star, title: "Religious & Spiritual Identity", id: "religious" },
     { icon: MapPin, title: "Location & Prayer Settings", id: "location" },
     { icon: BookOpen, title: "Religious Practice & Tools", id: "practice" },
     { icon: MessageCircle, title: "Social & Community", id: "social" },

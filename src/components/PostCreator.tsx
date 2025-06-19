@@ -1,62 +1,115 @@
 
 import { useState } from "react";
-import { Image, Video, Smile, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import PostInput from "./post-creator/PostInput";
+import MediaUpload from "./post-creator/MediaUpload";
+import TagSelector from "./post-creator/TagSelector";
+import PrivacyToggle from "./post-creator/PrivacyToggle";
+import { useToast } from "@/hooks/use-toast";
+
+export interface MediaFile {
+  id: string;
+  file: File;
+  type: 'image' | 'video' | 'audio';
+  preview?: string;
+}
 
 const PostCreator = () => {
   const [postText, setPostText] = useState("");
+  const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [privacy, setPrivacy] = useState<'public' | 'friends' | 'private'>('public');
+  const [isPosting, setIsPosting] = useState(false);
+  const { toast } = useToast();
 
-  const handlePost = () => {
-    if (postText.trim()) {
-      console.log("Posting:", postText);
-      setPostText("");
+  const canPost = postText.trim() || mediaFiles.length > 0;
+
+  const handlePost = async () => {
+    if (!canPost) {
+      toast({
+        title: "Cannot post",
+        description: "Please add some content or media before posting.",
+        variant: "destructive"
+      });
+      return;
     }
+
+    setIsPosting(true);
+    
+    // Simulate posting delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    console.log("Posting:", {
+      text: postText,
+      media: mediaFiles,
+      tags: selectedTags,
+      privacy
+    });
+
+    toast({
+      title: "Post shared!",
+      description: "Your beneficial content has been shared with the community.",
+    });
+
+    // Reset form
+    setPostText("");
+    setMediaFiles([]);
+    setSelectedTags([]);
+    setPrivacy('public');
+    setIsPosting(false);
+  };
+
+  const handleMediaAdd = (files: MediaFile[]) => {
+    setMediaFiles(prev => [...prev, ...files]);
+  };
+
+  const handleMediaRemove = (id: string) => {
+    setMediaFiles(prev => prev.filter(file => file.id !== id));
   };
 
   return (
     <Card className="mb-6 shadow-sm">
       <CardContent className="p-4">
-        <div className="flex space-x-3">
+        <div className="flex space-x-3 mb-4">
           <Avatar className="w-10 h-10">
             <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <Textarea
-              placeholder="What's on your mind, John?"
+            <PostInput 
               value={postText}
-              onChange={(e) => setPostText(e.target.value)}
-              className="border-none resize-none focus:ring-0 p-0 text-lg placeholder:text-gray-500"
-              rows={2}
+              onChange={setPostText}
+              placeholder="Share something beneficial..."
             />
           </div>
         </div>
 
-        <div className="mt-4 pt-4 border-t">
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100">
-                <Video className="w-5 h-5 text-red-500" />
-                <span className="hidden sm:inline">Live video</span>
-              </Button>
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100">
-                <Image className="w-5 h-5 text-green-500" />
-                <span className="hidden sm:inline">Photo/video</span>
-              </Button>
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100">
-                <Smile className="w-5 h-5 text-yellow-500" />
-                <span className="hidden sm:inline">Feeling/activity</span>
-              </Button>
-            </div>
+        <div className="space-y-4">
+          <MediaUpload 
+            files={mediaFiles}
+            onAdd={handleMediaAdd}
+            onRemove={handleMediaRemove}
+          />
+
+          <TagSelector 
+            selectedTags={selectedTags}
+            onTagsChange={setSelectedTags}
+          />
+
+          <div className="flex items-center justify-between pt-4 border-t">
+            <PrivacyToggle 
+              value={privacy}
+              onChange={setPrivacy}
+            />
+
             <Button 
               onClick={handlePost}
-              disabled={!postText.trim()}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6"
+              disabled={!canPost || isPosting}
+              className="bg-green-600 hover:bg-green-700 text-white px-8"
             >
-              Post
+              {isPosting ? "Posting..." : "Post"}
             </Button>
           </div>
         </div>
